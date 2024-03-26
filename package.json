@@ -1,5 +1,39 @@
 {
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npx ts-node ./scripts/viem/Deploy.ts Prop1 Prop2 Prop3",
+    "vote": "npx ts-node ./scripts/viem/CastVote.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF 2",
+    "giveRightToVote": "npx ts-node ./scripts/viem/GiveRightToVote.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF 0x2BF5E574FE29d1A60487341c71252512Aa41c87c",
+    "delegate": "npx ts-node ./scripts/viem/Delegate.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF 0x2BF5E574FE29d1A60487341c71252512Aa41c87c",
+    "winningProposal": "npx ts-node ./scripts/viem/GetWinningProposal.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.10",
+    "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.5",
+    "@nomicfoundation/hardhat-viem": "^1.0.4",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@types/chai": "^4.3.12",
+    "@types/chai-as-promised": "^7.1.8",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.29",
+    "chai": "^4.4.1",
+    "hardhat": "^2.22.2",
+    "hardhat-gas-reporter": "^1.0.10",
+    "solidity-coverage": "^0.8.11",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.0.4",
+    "viem": "^1.21.4"
+  },
   "dependencies": {
-    "all": "^0.0.0"
+    "all": "^0.0.0",
+    "dotenv": "^16.4.5"
   }
 }
