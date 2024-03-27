@@ -1,46 +1,35 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {MyToken} from "./MyToken.sol";
+import {MyNFT} from "./MyNFT.sol";
+import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
 contract TokenSale {
     uint256 public ratio;
     uint256 public price;
-    IERC20 public paymentToken;
-    IERC721 public nftCollection;
+    MyToken public paymentToken;
+    MyNFT public nftCollection;
 
     constructor(
         uint256 _ratio,
-        uint256 _price
+        uint256 _price,
+        MyToken _paymentToken,
+        MyNFT _nftCollection
     ) {
         ratio = _ratio;
         price = _price;
+        paymentToken = _paymentToken;
+        nftCollection = _nftCollection;
     }
 
-    function setPaymentToken(address _paymentToken) external {
-        paymentToken = IERC20(_paymentToken);
+    // Buy ERC20 tokens with ETH at a fixed ratio
+    function buyTokens() external payable {
+        paymentToken.mint(msg.sender, msg.value * ratio);
     }
 
-    function setNftCollection(address _nftCollection) external {
-        nftCollection = IERC721(_nftCollection);
-    }
-
-    function buy(uint256 amount) external {
-        require(amount > 0, "Amount must be greater than 0");
-
-        // Transfer ERC20 tokens from buyer to this contract
-        paymentToken.transferFrom(
-            msg.sender,
-            address(this),
-            amount * price
-        );
-
-        // Transfer ERC721 tokens from this contract to buyer
-        nftCollection.transferFrom(
-            address(this),
-            msg.sender,
-            amount * ratio
-        );
+    function returnTokens(uint256 amount) external {
+        paymentToken.burnFrom(msg.sender, amount);
+        payable(msg.sender).transfer(amount / ratio);
     }
 }
