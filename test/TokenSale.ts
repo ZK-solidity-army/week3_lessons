@@ -121,7 +121,7 @@ describe("NFT Shop", async () => {
     it("burns the correct amount of tokens", async () => {
       // step 1 -> call the tokenContract to approve amount to the tokensaleCtonract
       // step 2 -> call the TokenSaleCtonract for returnTokens function
-      // step 3 -> Check the TOKEN balance of the user.
+      // step 3 -> Check the TOKENS balance of the user.
       throw new Error("Not implemented");
     });
   });
