@@ -14,7 +14,7 @@ npx ts-node ./scripts/MyToken/deploy.ts
 
 ```bash
 npx ts-node ./scripts/MyToken/mint.ts \
-    --address=0xa1e.. --to=0xcd2.. --ether=0.05
+    --address=0xa1e.. --to=0xcd2.. --amount=10
 ```
 
 To mint for the deployer address you may ommit `--to`
