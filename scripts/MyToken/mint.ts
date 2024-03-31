@@ -11,7 +11,7 @@ async function main() {
     .options({
       address: { type: "string", demandOption: true },
       to: { type: "string", demandOption: false },
-      ether: { type: "string", demandOption: true },
+      amount: { type: "string", demandOption: true },
     })
     .parseSync();
 
@@ -24,21 +24,21 @@ async function main() {
   await mint(
     argv.address as `0x${string}`,
     argv.to as `0x${string}`,
-    parseEther(argv.ether)
+    parseEther(argv.amount)
   );
 }
 
 async function mint(
   contractAddress: `0x${string}`,
   toAddress: `0x${string}`,
-  ether: bigint
+  amount: bigint
 ) {
   const { deployer, publicClient } = createClient();
   if (!toAddress) {
     toAddress = deployer.account.address;
   }
 
-  console.log(`\nMint ${formatEther(ether)} ETH`);
+  console.log(`\nMint ${formatEther(amount)} MTK`);
   console.log("  To address:", toAddress);
 
   // mint
@@ -46,14 +46,14 @@ async function mint(
     address: contractAddress,
     abi,
     functionName: "mint",
-    args: [toAddress, ether],
+    args: [toAddress, amount],
   });
   console.log("Transaction hash:", hash);
   console.log("Waiting for confirmations...");
   await publicClient.waitForTransactionReceipt({ hash });
   console.log("Transaction confirmed");
   console.log(
-    `Minted ${formatEther(ether)} decimal units to account ${toAddress}`
+    `Minted ${formatEther(amount)} decimal units to account ${toAddress}`
   );
 
   // get balance
