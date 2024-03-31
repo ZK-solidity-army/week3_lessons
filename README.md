@@ -46,3 +46,9 @@ npx ts-node ./scripts/TokenizedBallot/deploy.ts \
 npx ts-node /TokenizedBallot/vote.ts \
   --address=0xa1e.. --proposal=Chocollate --amount=2
 ```
+
+### GetAllProposals for TokenizedBallot.sol
+
+```bash
+npx ts-node /TokenizedBallot/getAllProposals.ts --address=0xa1e..
+```
