@@ -6,7 +6,7 @@ import {
   abi,
   bytecode,
 } from "../../artifacts/contracts/TokenizedBallot.sol/TokenizedBallot.json";
-import { createClient } from "./lib";
+import { createClient } from "../lib";
 
 async function main() {
   console.log("Deploying...");
