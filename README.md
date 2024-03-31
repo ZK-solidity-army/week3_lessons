@@ -2,6 +2,8 @@
 
 ## Usage
 
+* `npm install`
+
 ### Deploy MyToken.sol
 
 ```bash
@@ -12,12 +14,23 @@ npx ts-node ./scripts/MyToken/deploy.ts
 
 ```bash
 npx ts-node ./scripts/MyToken/mint.ts \
-    --address=0xa1e.. --to=0xcd2.. --ether=1
+    --address=0xa1e.. --to=0xcd2.. --ether=0.05
 ```
 
 To mint for the deployer address you may ommit `--to`
 ```bash
-npx ts-node ./scripts/MyToken/mint.ts --address=0xa1e.. --ether=1
+npx ts-node ./scripts/MyToken/mint.ts --address=0xa1e.. --ether=0.05
+```
+
+### Delegate with MyToken.sol
+
+```bash
+npx ts-node ./scripts/MyToken/delegate.ts --address=0xa1e.. --to=0xcd2..
+```
+
+To delegate for itself you may ommit `--to`
+```bash
+npx ts-node ./scripts/MyToken/delegate.ts --address=0xa1e..
 ```
 
 ### Deploy TokenizedBallot.sol
@@ -26,7 +39,6 @@ npx ts-node ./scripts/MyToken/mint.ts --address=0xa1e.. --ether=1
 npx ts-node ./scripts/TokenizedBallot/deploy.ts \
 	--address=0xfed.. --block=1 --proposals==Chocollate,Vanilla,Strawberry
 ```
-
 
 ### Vote with TokenizedBallot.sol
 
