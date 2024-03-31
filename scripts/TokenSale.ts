@@ -6,8 +6,8 @@ import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 const TEST_RATIO = 10n;
 const TEST_PRICE = 5n;
 const TEST_BUY_AMOUNT = "10";
-// helpers
 
+// HELPERS
 async function fixture() {
   const publicClient = await viem.getPublicClient();
   const [deployer, acc1, acc2] = await viem.getWalletClients();
@@ -32,6 +32,7 @@ async function fixture() {
     acc2,
   };
 }
+
 
 describe("NFT Shop", async () => {
   describe("When the Shop contract is deployed", async () => {

@@ -2,18 +2,21 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 interface IMyToken {
-    function getPastVotes(address, uint256) external view returns (uint256);
+    function getPastVotes(
+        address _address,
+        uint256 _blockNumber
+    ) external view returns (uint256);
 }
 
 contract TokenizedBallot {
     struct Proposal {
         bytes32 name;
-        uint voteCount;
+        uint256 voteCount;
     }
 
     IMyToken public tokenContract;
     Proposal[] public proposals;
-    uint256 public targetBlockNumber;
+    uint256 public immutable targetBlockNumber;
     mapping(address => mapping(uint256 => bool)) public hasVoted;
 
     constructor(
@@ -23,17 +26,16 @@ contract TokenizedBallot {
     ) {
         tokenContract = IMyToken(_tokenContract);
         targetBlockNumber = _targetBlockNumber;
-        // TODO: Validate if targetBlockNumber is in the past
-        for (uint i = 0; i < _proposalNames.length; i++) {
+        require(
+            _targetBlockNumber < block.number,
+            "Target block number must be in the past"
+        );
+        for (uint256 i = 0; i < _proposalNames.length; i++) {
             proposals.push(Proposal({name: _proposalNames[i], voteCount: 0}));
         }
     }
 
-    function vote(
-        uint256 proposal,
-        uint256 amount,
-        uint256 targetBlockNumber
-    ) external {
+    function vote(uint256 proposal, uint256 amount) external {
         // Check if the sender has not voted on this proposal before
         require(
             !hasVoted[msg.sender][proposal],
@@ -53,9 +55,13 @@ contract TokenizedBallot {
         proposals[proposal].voteCount += amount;
     }
 
-    function winningProposal() public view returns (uint winningProposal_) {
-        uint winningVoteCount = 0;
-        for (uint p = 0; p < proposals.length; p++) {
+    function getAllProposals() external view returns (Proposal[] memory) {
+        return proposals;
+    }
+
+    function winningProposal() public view returns (uint256 winningProposal_) {
+        uint256 winningVoteCount = 0;
+        for (uint256 p = 0; p < proposals.length; p++) {
             if (proposals[p].voteCount > winningVoteCount) {
                 winningVoteCount = proposals[p].voteCount;
                 winningProposal_ = p;
