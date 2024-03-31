@@ -1,15 +1,11 @@
-import { toHex, parseEther, formatEther } from "viem";
+import { toHex, parseEther, formatEther, createPublicClient } from "viem";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import {
-  abi,
-  bytecode,
-} from "../../artifacts/contracts/TokenizedBallot.sol/TokenizedBallot.json";
+import { abi } from "../../artifacts/contracts/TokenizedBallot.sol/TokenizedBallot.json";
 import { createClient } from "../lib";
 
 async function main() {
-  console.log("Voting...");
   const argv = yargs(hideBin(process.argv))
     .options({
       address: { type: "string", demandOption: true },
@@ -46,7 +42,11 @@ async function vote(
   console.log("  Amount:", amount, ` (${formatEther(amount)} decimal units)`);
   console.log("  TokenizedBallot address:", contractAddress);
 
-  const proposalIndex = await getProposalIndex(contractAddress, proposal);
+  const proposalIndex = await getProposalIndex(
+    publicClient,
+    contractAddress,
+    proposal
+  );
   console.log("Found proposal index:", proposalIndex);
 
   console.log(`Voting to proposal "${proposal}"`);
@@ -56,7 +56,7 @@ async function vote(
   stdin.addListener("data", async (d) => {
     if (d.toString().trim().toLowerCase() == "n") {
       console.log("Operation cancelled");
-      process.exit();
+      process.exit(1);
     }
 
     console.log("Sending transaction...");
@@ -64,21 +64,29 @@ async function vote(
       address: contractAddress,
       abi,
       functionName: "vote",
-      args: [BigInt(proposalIndex), BigInt(amount)],
+      // skip GasEstimation step because of the following error:
+      //   version: 'viem@1.21.3',
+      //   cause: EstimateGasExecutionError: Execution reverted for an unknown reason.
+      // https://github.com/wevm/viem/discussions/732
+      // gas: 1000000n,
+      args: [BigInt(proposalIndex), amount],
     });
     console.log("Transaction hash:", hash);
     console.log("Waiting for confirmations...");
-    await publicClient.waitForTransactionReceipt({ hash });
+    const receipt = await publicClient.waitForTransactionReceipt({ hash });
+    if (receipt.status == "reverted") {
+      throw new Error("Transaction reverted");
+    }
     console.log("Transaction confirmed");
+    process.exit();
   });
 }
 
 async function getProposalIndex(
+  publicClient: ReturnType<typeof createPublicClient>,
   contractAddress: `0x${string}`,
   proposal: string
 ) {
-  const { publicClient } = createClient();
-
   const proposals = (await publicClient.readContract({
     address: contractAddress,
     abi,
