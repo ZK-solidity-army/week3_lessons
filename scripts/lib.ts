@@ -16,5 +16,6 @@ export function createClient() {
     transport: http(ALCHEMY_URL),
   });
 
+  console.log(`[SYSTEM INFO] Deployer address: ${deployer.account.address}`);
   return { account, deployer, publicClient };
 }
