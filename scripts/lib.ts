@@ -1,7 +1,7 @@
 import { sepolia } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 
-import { PRIVATE_KEY, ALCHEMY_URL } from "../../config";
+import { PRIVATE_KEY, ALCHEMY_URL } from "../config";
 import { createPublicClient, createWalletClient, http } from "viem";
 
 export function createClient() {
