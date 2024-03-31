@@ -44,5 +44,5 @@ npx ts-node ./scripts/TokenizedBallot/deploy.ts \
 
 ```bash
 npx ts-node /TokenizedBallot/vote.ts \
-  --address=0xa1e.. --proposal=Chocollate --amount=100
+  --address=0xa1e.. --proposal=Chocollate --amount=0.01
 ```

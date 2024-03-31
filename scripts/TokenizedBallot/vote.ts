@@ -1,4 +1,4 @@
-import { toHex } from "viem";
+import { toHex, parseEther, formatEther } from "viem";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
@@ -14,7 +14,7 @@ async function main() {
     .options({
       address: { type: "string", demandOption: true },
       proposal: { type: "string", demandOption: true },
-      amount: { type: "number", demandOption: true },
+      amount: { type: "string", demandOption: true },
     })
     .parseSync();
 
@@ -28,18 +28,22 @@ async function main() {
     throw new Error("Provide vote amount");
   }
 
-  await vote(argv.address as `0x${string}`, argv.proposal, argv.amount);
+  await vote(
+    argv.address as `0x${string}`,
+    argv.proposal,
+    parseEther(argv.amount)
+  );
 }
 
 async function vote(
   contractAddress: `0x${string}`,
   proposal: string,
-  amount: number
+  amount: bigint
 ) {
   const { deployer, publicClient } = createClient();
 
   console.log(`\nVote for ${proposal}`);
-  console.log("  Amount:", amount);
+  console.log("  Amount:", amount, ` (${formatEther(amount)} decimal units)`);
 
   const proposalIndex = await getProposalIndex(contractAddress, proposal);
   console.log("Found proposal index:", proposalIndex);
