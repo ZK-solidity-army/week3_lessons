@@ -44,6 +44,7 @@ async function vote(
 
   console.log(`\nVote for ${proposal}`);
   console.log("  Amount:", amount, ` (${formatEther(amount)} decimal units)`);
+  console.log("  TokenizedBallot address:", contractAddress);
 
   const proposalIndex = await getProposalIndex(contractAddress, proposal);
   console.log("Found proposal index:", proposalIndex);

@@ -19,7 +19,7 @@ npx ts-node ./scripts/MyToken/mint.ts \
 
 To mint for the deployer address you may ommit `--to`
 ```bash
-npx ts-node ./scripts/MyToken/mint.ts --address=0xa1e.. --ether=0.05
+npx ts-node ./scripts/MyToken/mint.ts --address=0xa1e.. --amount=10
 ```
 
 ### Delegate with MyToken.sol
@@ -44,5 +44,5 @@ npx ts-node ./scripts/TokenizedBallot/deploy.ts \
 
 ```bash
 npx ts-node /TokenizedBallot/vote.ts \
-  --address=0xa1e.. --proposal=Chocollate --amount=0.01
+  --address=0xa1e.. --proposal=Chocollate --amount=2
 ```
