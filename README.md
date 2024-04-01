@@ -1,54 +1,24 @@
-# 3 week solidity bootcamp
+# Tokenized Ballot
+This repository contains smart contracts and scripts for interacting with them, focusing on ERC20Votes properties, including snapshots, self-delegation, and overall contract operation.
 
-## Usage
+## Features:
 
-* `npm install`
+## ERC20Votes properties
+Snapshots
+Creating snapshots when supply changes
+Using snapshots
+Self delegation
+Contract overall operation
+Task Overview:
 
-### Deploy MyToken.sol
+The task involves developing and running scripts for the "TokenizedBallot.sol" contract, including functionalities such as giving voting tokens, delegating voting power, casting votes, checking vote power, and querying results.
 
-```bash
-npx ts-node ./scripts/MyToken/deploy.ts
-```
+## Workflow:
 
-### Mint with MyToken.sol
-
-```bash
-npx ts-node ./scripts/MyToken/mint.ts --address=0xa1e.. --amount=10
-```
-
-You may mint for the specific account with `--to` option
-```bash
-npx ts-node ./scripts/MyToken/mint.ts \
-    --address=0xa1e.. --to=0xcd2.. --amount=10
-```
-
-### Delegate with MyToken.sol
-
-```bash
-npx ts-node ./scripts/MyToken/delegate.ts --address=0xa1e..
-```
-
-You can delegate to specific account with `--to` option
-```bash
-npx ts-node ./scripts/MyToken/delegate.ts --address=0xa1e.. --to=0xcd2..
-```
-
-### Deploy TokenizedBallot.sol
-
-```bash
-npx ts-node ./scripts/TokenizedBallot/deploy.ts \
-	--address=0xfed.. --block=1 --proposals=Chocollate,Vanilla,Strawberry
-```
-
-### Vote with TokenizedBallot.sol
-
-```bash
-npx ts-node ./scripts/TokenizedBallot/vote.ts \
-  --address=0xa1e.. --proposal=Chocollate --amount=2
-```
-
-### GetAllProposals for TokenizedBallot.sol
-
-```bash
-npx ts-node ./scripts/TokenizedBallot/getAllProposals.ts --address=0xa1e..
-```
+Deploy MyToken.sol
+Mint tokens with MyToken.sol for itself
+Delegate voting power with MyToken.sol to itself
+Deploy TokenizedBallot.sol
+Vote with TokenizedBallot.sol
+Retrieve all proposals from TokenizedBallot.sol
+Get the winner from TokenizedBallot.sol
