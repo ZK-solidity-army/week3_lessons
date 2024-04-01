@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "npx ts-node ./scripts/viem/Deploy.ts Prop1 Prop2 Prop3",
-    "vote": "npx ts-node ./scripts/viem/CastVote.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF 2",
-    "giveRightToVote": "npx ts-node ./scripts/viem/GiveRightToVote.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF 0x2BF5E574FE29d1A60487341c71252512Aa41c87c",
-    "delegate": "npx ts-node ./scripts/viem/Delegate.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF 0x2BF5E574FE29d1A60487341c71252512Aa41c87c",
-    "winningProposal": "npx ts-node ./scripts/viem/GetWinningProposal.ts 0xE08401c7f79B60b7CFC184615b4b197941F5fBaF"
+    "deployMyToken": "npx hardhat run ./scripts/MyToken/deploy.ts",
+    "deployTokenizedBallot": "npx ts-node ./scripts/TokenizedBallot/deploy.ts --address=MY_TOKEN_ADDRESS --block=1 --proposals=`BTC,SOL,ETH`",
+    "mint": "npx ts-node ./scripts/MyToken/mint.ts --address=MY_TOKEN_ADDRESS --to=ADDRY_TO_MINT --amount=100",
+    "delegate": "npx ts-node ./scripts/MyToken/delegate.ts --address=MY_TOKEN_ADDRESS --to=TO_WHOM_TO_DELEGATE",
+    "vote": "npx ts-node ./scripts/TokenizedBallot/vote.ts --address=TOKENIZED_BALLOT_ADDRESS --proposal=ETH --amount=100"
   },
   "author": "",
   "license": "ISC",
